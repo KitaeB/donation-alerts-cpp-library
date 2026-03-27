@@ -119,30 +119,4 @@ namespace donation_alerts {
                                  r.reason);
     }
 
-    bool Client::spinRoulette() const {
-        if (!isAuthorized()) {
-            throw std::runtime_error("Client is not autorized");
-        }
-
-        // Формируем JSON-тело запроса
-        nlohmann::json requestJson = {{"event", "roulette-action"}, {"eventData", "roll"}};
-
-        // Выполняем POST-запрос
-        cpr::Response r =
-            cpr::Post(cpr::Url{"https://www.donationalerts.com/api/v1/roulette/roulette-widget/emit-event"},
-                      getAuthHeader(),  // Подставляет "Authorization: Bearer ТВОЙ_ТОКЕН"
-                      cpr::Header{{"Content-Type", "application/json"}},  // Обязательно указываем формат
-                      cpr::Body{requestJson.dump()}                       // .dump() превращает JSON в правильную строку
-            );
-
-        // 4. Проверяем ответ
-        if (r.status_code == 200) {
-            // Успех!
-            return true;
-        } else {
-            throw std::runtime_error("Failed to spim roulette. Status: " + std::to_string(r.status_code) + " " +
-                                     r.reason);
-        }
-    }
-
 }  // namespace donation_alerts
