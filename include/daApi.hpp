@@ -22,6 +22,8 @@ namespace donation_alerts {
         [[nodiscard]] std::optional<DonationsResponse> getDonations(int page = 1) const;
         // Отпрака кастомного оповещения
         [[nodiscard]] std::optional<CustomAlertResponse> setCustomAlert(CustomAlert customAlert) const;
+        // Запуск рулетки
+        [[nodiscard]] bool spinRoulette() const;
 
         // Проверка, авторизован ли клиент (есть ли у нас токен)
         [[nodiscard]] bool isAuthorized() const;
